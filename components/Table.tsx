@@ -1,21 +1,16 @@
-"use client";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { User } from "@/utils/generateFakeUsers";
-import { generateFakeUsers } from "@/utils/generateFakeUsers";
+"use client"
 import Image from "next/image";
-const Table: React.FC<User> = () => {
-  const [data, setData] = useState<User[]>([]);
+import { useUsers } from "@/contexts/UsersContext";
+const Table = () => {
+  const user = useUsers();
+  if (!user) return null;
+  const { data, handleDelete, handleUpdate } = user;
 
-  useEffect(() => {
-    const loadData = generateFakeUsers(40);
-    setData(loadData);
-  }, []);
   return (
     <div className="flex justify-center    h-4/5 bg-white rounded-[10px] w-auto mx-4  my-10">
       <div className="flex overflow-y-scroll rounded-md  ">
         <table className=" text-sm text-left  border-b border-[#EAEAEA]  ">
-          <thead className=" font-bold bg-white  text-center items-center border-b border-[#EAEAEA]">
+          <thead className=" font-bold bg-white uppercase text-center items-center border-b border-[#EAEAEA]">
             <tr>
               <th scope="col" className="px-12 py-6">
                 NAME
@@ -51,10 +46,16 @@ const Table: React.FC<User> = () => {
                     }`}
                   ></div>
                 </td>
-                <td className="px-12 py-4">
-                  <button>
-                    <Image alt="bin" src="/assets/bin.svg" width={40} height={40} />
+                <td className="px-12 py-4 flex flex-row">
+                  <button onClick={() => handleDelete(idx)}>
+                    <Image
+                      alt="bin"
+                      src="/assets/bin.svg"
+                      width={40}
+                      height={40}
+                    />
                   </button>
+                  <button onClick={() => handleUpdate(item)}>update</button>
                 </td>
               </tr>
             ))}

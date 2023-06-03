@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker";
 export type User = {
-  id: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  role: boolean;
-  active: boolean;
+  id: string | null;
+  fullName: string | null;
+  email: string | null;
+  phone: string | null;
+  role: boolean | null;
+  active: boolean | null;
 };
 
 const generateFakeUser = (): User => {
