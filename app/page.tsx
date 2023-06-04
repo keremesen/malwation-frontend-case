@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import Image from "next/image";
 
 type FormData = {
   email: string;
@@ -39,10 +40,11 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen bg-gray-200 flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center ">
+      <Image alt="Geek Agent" className="absolute left-1/4"  src="/assets/gif1.gif" width={200} height={200} />
       {!user && (
-        <div className="h-1/2 w-1/4 bg-white  rounded-sm">
-          <form className="flex flex-col p-4" onSubmit={handleSubmit(Login)}>
+        <div className="h-1/2 w-1/4 bg-white flex  rounded-xl items-center justify-center">
+          <form className="flex flex-col w-2/3 space-y-1" onSubmit={handleSubmit(Login)}>
             <label>Email</label>
             <input
               className="border-gray-400 border-2"
@@ -54,7 +56,7 @@ export default function Home() {
             )}
             <label>Password</label>
             <input
-              className="border-gray-400 border-2"
+              className="border-gray-400 border-2 "
               type="password"
               {...register("password")}
             />
@@ -62,7 +64,7 @@ export default function Home() {
               <span className="text-red-700">{errors.password.message}</span>
             )}
 
-            <input className="bg-gray-200" type="submit" />
+            <input className="bg-gray-200 p-1 rounded-full  text-semibold"  value="Login" type="submit" />
           </form>
         </div>
       )}
