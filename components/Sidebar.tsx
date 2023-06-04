@@ -45,8 +45,8 @@ const Sidebar = () => {
           </svg>
         </button>
       </div>
-      <Accordion title="Navigasyon" content="Anasayfa" />
-      <Accordion title="APPS" content="Kullanıcı İşleri" />
+      <Accordion title="Navigation" content="Home" />
+      <Accordion title="Apps" content="Users" />
       <Image alt="gif" className="absolute bottom-0" src="/assets/gif2.gif" width={200} height={200} />
     </div>
   );

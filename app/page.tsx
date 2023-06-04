@@ -33,7 +33,7 @@ export default function Home() {
   const { user, login } = auth;
 
   const Login = (data: FormData) => {
-    if (data.email === adminMail) {
+    if (data.email === adminMail && data.password ==="123123") {
       login(data.email, data.password);
       router.push("/dashboard");
     }

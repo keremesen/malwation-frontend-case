@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 type UsersContextType = {
   data: User[];
+  setData: React.Dispatch<React.SetStateAction<User []>> ;
   handleDelete: (index: number) => void;
   handleUpdate: (user: User) => void;
   selectedUser: User | null;
@@ -54,6 +55,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
   };
   const usersContextValue: UsersContextType = {
     data,
+    setData,
     handleDelete,
     handleUpdate,
     selectedUser,
