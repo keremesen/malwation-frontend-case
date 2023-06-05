@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { ReactNode, createContext, useContext, useState } from "react";
 
 type AuthContextType = {
@@ -12,8 +12,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
 type AuthProviderProps = {
-    children: ReactNode
-}
+  children: ReactNode;
+};
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | null>(null);
@@ -32,5 +32,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
   };
 
-  return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authContextValue}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -33,41 +33,74 @@ export default function Home() {
   const { user, login } = auth;
 
   const Login = (data: FormData) => {
-    if (data.email === adminMail && data.password ==="123123") {
+    if (data.email === adminMail && data.password === "123123") {
       login(data.email, data.password);
       router.push("/dashboard");
     }
   };
 
   return (
-    <div className="h-screen flex items-center justify-center ">
-      <Image alt="Geek Agent" className="absolute left-1/4"  src="/assets/gif1.gif" width={200} height={200} />
-      {!user && (
-        <div className="h-1/2 w-1/4 bg-white flex  rounded-xl items-center justify-center">
-          <form className="flex flex-col w-2/3 space-y-1" onSubmit={handleSubmit(Login)}>
-            <label>Email</label>
-            <input
-              className="border-gray-400 border-2"
-              type="email"
-              {...register("email")}
+    <div className="h-screen flex items-center justify-center">
+      <div className="w-96 bg-white rounded-lg p-8 shadow">
+        <div className="flex items-center justify-center">
+          <Image
+            alt="Geek Agent"
+            src="/assets/gif1.gif"
+            width={200}
+            height={200}
+          />
+        </div>
+        <div className="mt-8">
+          <div className="text-center mb-6">
+            <Image
+              alt="malwation"
+              src="/assets/logoo.png"
+              height={80}
+              width={120}
             />
-            {errors.email && (
-              <span className="text-red-700">{errors.email.message}</span>
-            )}
-            <label>Password</label>
-            <input
-              className="border-gray-400 border-2 "
-              type="password"
-              {...register("password")}
-            />
-            {errors.password && (
-              <span className="text-red-700">{errors.password.message}</span>
-            )}
-
-            <input className="bg-gray-200 p-1 rounded-full  text-semibold"  value="Login" type="submit" />
+          </div>
+          <form className="space-y-4" onSubmit={handleSubmit(Login)}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 text-gray-700 placeholder-gray-400"
+                type="email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <span className="text-red-700">{errors.email.message}</span>
+              )}
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                className="w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 py-2 px-3 text-gray-700 placeholder-gray-400"
+                id="password"
+                type="password"
+                {...register("password")}
+              />
+              {errors.password && (
+                <span className="text-red-700">{errors.password.message}</span>
+              )}
+            </div>
+            <div>
+              <button className="w-full bg-indigo-500 text-white font-semibold py-2 px-4 rounded-md">
+                Login
+              </button>
+            </div>
           </form>
         </div>
-      )}
+      </div>
     </div>
   );
 }

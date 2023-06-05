@@ -11,12 +11,12 @@ import { useRouter } from "next/navigation";
 
 type UsersContextType = {
   data: User[];
-  setData: React.Dispatch<React.SetStateAction<User []>> ;
+  setData: React.Dispatch<React.SetStateAction<User[]>>;
   handleDelete: (index: number) => void;
   handleUpdate: (user: User) => void;
   selectedUser: User | null;
   setSelectedUser: React.Dispatch<React.SetStateAction<User | null>>;
-  updateUser: ( user:User) => void
+  updateUser: (user: User) => void;
 };
 
 const UsersContext = createContext<UsersContextType | undefined>(undefined);
@@ -31,7 +31,6 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
   const loadData = generateFakeUsers(40);
   const [data, setData] = useState<User[]>([]);
   useEffect(() => {
-  
     setData(loadData);
   }, []);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -60,7 +59,7 @@ export const UsersProvider: React.FC<UsersProviderProps> = ({ children }) => {
     handleUpdate,
     selectedUser,
     setSelectedUser,
-    updateUser
+    updateUser,
   };
 
   return (
