@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useUsers } from "@/contexts/UsersContext";
 import { useState } from "react";
-import { Tooltip } from "react-tooltip";
 
 const Table = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,8 +56,6 @@ const Table = () => {
           <tbody className="items-center text-center justify-center">
             {currentItems.map((item, idx) => (
               <tr
-                id="clickable"
-                data-tooltip-offset={0}
                 className="bg-white border-b font-semibold text-gray-700 h-20"
                 key={idx}
               >
@@ -95,13 +92,6 @@ const Table = () => {
                     </button>
                   </div>
                 </td>
-                <>
-                  <Tooltip anchorSelect="#clickable" clickable>
-                    <button onClick={() => handleUpdate(item)}>
-                      Update to user
-                    </button>
-                  </Tooltip>
-                </>
               </tr>
             ))}
           </tbody>

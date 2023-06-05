@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { useUsers } from "@/contexts/UsersContext";
 import { useRouter } from "next/navigation";
@@ -8,15 +8,20 @@ import Image from "next/image";
 
 const UserUpdate = () => {
   const router = useRouter();
-  const { selectedUser, setSelectedUser, updateUser } = useUsers();
+  const users = useUsers();
+  if (!users) {
+    return null;
+  }
+
+  const { selectedUser, setSelectedUser, updateUser } = users;
 
   if (!selectedUser) return null;
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setSelectedUser({ ...selectedUser, [e.target.name]: e.target.value });
   };
 
-  const handleRoleChange = (e) => {
+  const handleRoleChange = (e: any) => {
     const role = e.target.value === "admin";
     setSelectedUser({ ...selectedUser, role });
   };
@@ -25,7 +30,7 @@ const UserUpdate = () => {
     setSelectedUser({ ...selectedUser, active: !selectedUser.active });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     updateUser({ ...selectedUser });
     router.back();
@@ -40,7 +45,12 @@ const UserUpdate = () => {
               className="text-gray-500 font-semibold flex items-center space-x-2 hover:text-gray-700"
               onClick={() => router.back()}
             >
-              <Image alt="arrow-left" src="/assets/arrow-left.svg" width={24} height={24} />
+              <Image
+                alt="arrow-left"
+                src="/assets/arrow-left.svg"
+                width={24}
+                height={24}
+              />
               <span className="text-sm">Back to Users</span>
             </button>
           </div>
@@ -57,7 +67,7 @@ const UserUpdate = () => {
                     id="fullName"
                     name="fullName"
                     className="w-full bg-gray-100 rounded-md text-gray-700 py-3 px-4 border border-gray-300 focus:outline-none"
-                    value={selectedUser.fullName}
+                    value={selectedUser.fullName || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -70,7 +80,7 @@ const UserUpdate = () => {
                     id="email"
                     name="email"
                     className="w-full bg-gray-100 rounded-md text-gray-700 py-3 px-4 border border-gray-300 focus:outline-none"
-                    value={selectedUser.email}
+                    value={selectedUser.email || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -85,7 +95,7 @@ const UserUpdate = () => {
                     id="phone"
                     name="phone"
                     className="w-full bg-gray-100 rounded-md text-gray-700 py-3 px-4 border border-gray-300 focus:outline-none"
-                    value={selectedUser.phone}
+                    value={selectedUser.phone || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -111,7 +121,7 @@ const UserUpdate = () => {
                 </label>
                 <Switch
                   id="active-toggle"
-                  checked={selectedUser.active}
+                  checked={selectedUser.active || false}
                   onChange={handleToggle}
                   onColor="#10B981"
                   offColor="#D1D5DB"
