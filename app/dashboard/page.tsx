@@ -2,7 +2,6 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
-import { User } from "@/utils/generateFakeUsers";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +10,9 @@ const Dashboard = () => {
   const router = useRouter();
   if (!auth) {
     return null;
+  }
+  if(!router) {
+    return null
   }
   const { user } = auth;
   return (
@@ -27,5 +29,4 @@ const Dashboard = () => {
     </>
   );
 };
-
 export default Dashboard;
