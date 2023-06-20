@@ -14,7 +14,6 @@ const Sidebar = () => {
   const handleLogout = () => {
     logout();
     router.push("/");
-    console.log(user);
   };
   return (
     <div className="sticky p-4 flex flex-col left-0 bg-white h-screen w-1/5 space-y-4">

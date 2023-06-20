@@ -2,12 +2,12 @@
 import React, { useEffect } from "react";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Dashboard = () => {
-  const auth = useAuth();
   const router = useRouter();
+  const auth = useAuth();
 
   useEffect(() => {
     if (!auth?.user) {
@@ -15,14 +15,9 @@ const Dashboard = () => {
     }
   }, [auth?.user, router]);
 
-  if (!auth) {
-    return null;
-  }
-  const { user } = auth;
-
   return (
     <>
-      {user && (
+      {auth?.user && (
         <Layout>
           <div className="h-screen w-full flex items-center justify-center flex-col">
             <Table />
