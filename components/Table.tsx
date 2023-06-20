@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useUsers } from "@/contexts/UsersContext";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Tooltip } from "react-tooltip";
 
 const Table = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +21,7 @@ const Table = () => {
   const prevPage = () => setCurrentPage((prevPage) => prevPage - 1);
 
   return (
-    <div className="flex justify-center max-h-[80%] bg-white rounded-[10px] max-w-[90%] mx-4 my-10 flex-col items-center">
+    <div className="flex justify-start max-h-[80%] min-h-[80%] bg-white rounded-[10px] max-w-[90%] mx-4 my-10 flex-col items-center">
       <div className="flex items-center w-full justify-between px-12 my-2">
         <button className="border border-gray-300 bg-gray-100 rounded-lg w-28 px-4 py-2 flex flex-row items-center space-x-2">
           <Image alt="filter" src="/assets/filter.svg" width={18} height={18} />{" "}
@@ -55,25 +56,25 @@ const Table = () => {
           </thead>
           <tbody className="items-center text-center justify-center">
             {currentItems.map((item, idx) => (
-              <tr
-                className="bg-white border-b font-semibold text-gray-700 h-20"
-                key={idx}
-              >
-                <td className="px-12 py-4">{item.fullName} </td>
-                <td className="px-12 py-4">{item.email}</td>
-                <td className="px-12 py-4">{item.phone}</td>
-                <td className="px-12 py-4">
-                  <span>{item.role ? "Admin" : "Member"}</span>
-                </td>
-                <td className="px-12 py-4">
-                  <div
-                    className={`h-4 w-4 rounded-full ml-4 ${
-                      item.active ? "bg-green-500" : "bg-red-500"
-                    }`}
-                  ></div>
-                </td>
-                <td>
-                  <div className="flex flex-row">
+              <React.Fragment key={idx}>
+                <tr
+                  data-tooltip-id={`tooltip-anchor-${idx}`}
+                  className="bg-white border-b font-semibold text-gray-700 h-20"
+                >
+                  <td className="px-12 py-4">{item.fullName} </td>
+                  <td className="px-12 py-4">{item.email}</td>
+                  <td className="px-12 py-4">{item.phone}</td>
+                  <td className="px-12 py-4">
+                    <span>{item.role ? "Admin" : "Member"}</span>
+                  </td>
+                  <td className="px-12 py-4">
+                    <div
+                      className={`h-4 w-4 rounded-full ml-4 ${
+                        item.active ? "bg-green-500" : "bg-red-500"
+                      }`}
+                    ></div>
+                  </td>
+                  <td>
                     <button onClick={() => handleDelete(idx)} className="mr-2">
                       <Image
                         alt="bin"
@@ -82,17 +83,14 @@ const Table = () => {
                         height={20}
                       />
                     </button>
+                  </td>
+                  <Tooltip id={`tooltip-anchor-${idx}`} clickable place="right">
                     <button onClick={() => handleUpdate(item)}>
-                      <Image
-                        alt="edit"
-                        src="/assets/edit.svg"
-                        width={20}
-                        height={20}
-                      />
+                      Edit this user
                     </button>
-                  </div>
-                </td>
-              </tr>
+                  </Tooltip>
+                </tr>
+              </React.Fragment>
             ))}
           </tbody>
         </table>
