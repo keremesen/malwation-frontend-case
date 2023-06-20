@@ -16,14 +16,19 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  // const storedUser = localStorage.getItem("user");
+  // const initialUser = storedUser ? JSON.parse(storedUser) : null;
   const [user, setUser] = useState<string | null>(null);
 
   const login = (email: string, password: string) => {
+    const userJSON = JSON.stringify(email);
+    localStorage.setItem("user", userJSON);
     setUser(email);
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   const authContextValue: AuthContextType = {

@@ -14,7 +14,6 @@ const Sidebar = () => {
   const handleLogout = () => {
     logout();
     router.push("/");
-    console.log(user);
   };
   return (
     <div className="sticky p-4 flex flex-col left-0 bg-white h-screen w-1/5 space-y-4">
@@ -36,7 +35,7 @@ const Sidebar = () => {
         <Image alt="gif" src="/assets/gif2.gif" width={200} height={200} />
         <div className="flex flex-row justify-around items-center ">
           <div className="flex flex-col m-4">
-            <text className="text-[#1F2633] font-bold text-sm">{user}</text>
+            <text className="text-[#1F2633] font-bold text-sm">{JSON.parse(localStorage.getItem("user") || "")}</text>
             <text className="text-gray-400 font-semibold text-sm ">Admin</text>
           </div>
           <button onClick={handleLogout}>
