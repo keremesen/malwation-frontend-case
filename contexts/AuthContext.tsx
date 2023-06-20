@@ -16,8 +16,6 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // const storedUser = localStorage.getItem("user");
-  // const initialUser = storedUser ? JSON.parse(storedUser) : null;
   const [user, setUser] = useState<string | null>(null);
 
   const login = (email: string, password: string) => {
