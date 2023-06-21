@@ -1,8 +1,9 @@
 "use client";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 type AuthContextType = {
   user: string | null;
+  setUser: React.Dispatch<React.SetStateAction<string | null>>
   login: (email: string, password: string) => void;
   logout: () => void;
 };
@@ -17,6 +18,14 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("user");
+      setUser(storedUser);
+    }
+  }, [])
+  
 
   const login = (email: string, password: string) => {
     const userJSON = JSON.stringify(email);
@@ -31,6 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const authContextValue: AuthContextType = {
     user,
+    setUser,
     login,
     logout,
   };

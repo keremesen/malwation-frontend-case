@@ -1,28 +1,40 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import Table from "@/components/Table";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import Link from "next/link";
 
 const Dashboard = () => {
-  const router = useRouter();
+  const auth = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!localStorage.getItem("user")) {
-      router.push("/");
-    }
+    setIsLoading(false);
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center text-3xl font-semibold">
+        Loading...
+      </div>
+    );
+  }
+
+  if (!auth?.user) {
+    return (
+      <div className="flex h-screen items-center justify-center text-3xl font-semibold">
+        <Link href="/">Please go back and login</Link>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {localStorage.getItem("user") && (
-        <Layout>
-          <div className="h-screen w-full flex items-center justify-center flex-col">
-            <Table />
-          </div>
-        </Layout>
-      )}
-    </>
+    <Layout>
+      <div className="h-screen w-full flex items-center justify-center flex-col">
+        <Table />
+      </div>
+    </Layout>
   );
 };
 
